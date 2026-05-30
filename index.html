@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="app-title">Todo</h1>
+
+      <!-- 입력 영역 -->
+      <div class="input-section">
+        <div class="input-wrapper">
+          <input
+            type="text"
+            id="todoInput"
+            class="todo-input"
+            placeholder="할 일을 입력하세요"
+            maxlength="200"
+          />
+          <button id="addBtn" class="add-btn">추가</button>
+        </div>
+        <!-- 빈 입력 안내 메시지 (기본적으로 숨김) -->
+        <p id="errorMsg" class="error-msg hidden">할 일을 입력해주세요.</p>
+      </div>
+
+      <!-- 필터 탭 -->
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">전체</button>
+        <button class="filter-tab" data-filter="active">진행 중</button>
+        <button class="filter-tab" data-filter="completed">완료</button>
+      </div>
+
+      <!-- Todo 목록 영역 -->
+      <ul id="todoList" class="todo-list"></ul>
+
+      <!-- 현재 필터 기준으로 표시할 항목이 없을 때 메시지 -->
+      <p id="emptyMsg" class="empty-msg">아직 할 일이 없어요. 추가해보세요!</p>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
