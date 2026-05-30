@@ -28,8 +28,65 @@ body {
   font-size: 2rem;
   font-weight: 700;
   color: #672be0;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   letter-spacing: -0.5px;
+}
+
+/* ===== 날짜 네비게이션 ===== */
+.date-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  border: 1px solid #e0d6f7;
+  border-radius: 12px;
+  padding: 10px 8px;
+  margin-bottom: 20px;
+}
+
+.date-nav-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #672be0;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s;
+  flex-shrink: 0;
+}
+
+.date-nav-btn:hover {
+  background-color: #ede9f9;
+}
+
+.date-display-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.date-display {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  letter-spacing: -0.3px;
+}
+
+/* TODAY 뱃지: 오늘 날짜일 때만 표시 */
+.today-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #fff;
+  background-color: #672be0;
+  border-radius: 20px;
+  padding: 2px 8px;
+  letter-spacing: 0.04em;
 }
 
 /* ===== 입력 영역 ===== */
@@ -97,7 +154,6 @@ body {
   display: flex;
   gap: 6px;
   margin-bottom: 20px;
-  /* 하단 구분선 */
   border-bottom: 2px solid #e0d6f7;
   padding-bottom: 0;
 }
