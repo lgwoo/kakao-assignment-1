@@ -1,3 +1,6 @@
+// ===== 상수 =====
+const STORAGE_KEY = 'todo-app-data';
+
 // ===== 상태 =====
 // 모든 Todo 항목을 담는 배열. 각 항목: { id, text, completed, date }
 let todos = [];
@@ -12,16 +15,39 @@ let currentFilter = 'all';
 let selectedDate = getTodayString();
 
 // ===== DOM 참조 =====
-const todoInput    = document.getElementById('todoInput');
-const addBtn       = document.getElementById('addBtn');
-const todoList     = document.getElementById('todoList');
-const errorMsg     = document.getElementById('errorMsg');
-const emptyMsg     = document.getElementById('emptyMsg');
-const dateDisplay  = document.getElementById('dateDisplay');
-const todayBadge   = document.getElementById('todayBadge');
-const prevDayBtn   = document.getElementById('prevDayBtn');
-const nextDayBtn   = document.getElementById('nextDayBtn');
-const filterTabs   = document.querySelectorAll('.filter-tab');
+const todoInput   = document.getElementById('todoInput');
+const addBtn      = document.getElementById('addBtn');
+const todoList    = document.getElementById('todoList');
+const errorMsg    = document.getElementById('errorMsg');
+const emptyMsg    = document.getElementById('emptyMsg');
+const dateDisplay = document.getElementById('dateDisplay');
+const todayBadge  = document.getElementById('todayBadge');
+const prevDayBtn  = document.getElementById('prevDayBtn');
+const nextDayBtn  = document.getElementById('nextDayBtn');
+const filterTabs  = document.querySelectorAll('.filter-tab');
+
+// ===== 로컬스토리지 =====
+
+// todos 배열과 nextId를 로컬스토리지에 저장
+function saveTodos() {
+  const data = { todos, nextId };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+// 로컬스토리지에서 데이터를 불러와 todos, nextId를 복원
+function loadTodos() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) return; // 저장된 데이터 없으면 기본값 유지
+
+  try {
+    const data = JSON.parse(raw);
+    todos  = Array.isArray(data.todos) ? data.todos : [];
+    nextId = typeof data.nextId === 'number' ? data.nextId : 1;
+  } catch {
+    // JSON 파싱 실패 시 손상된 데이터 제거 후 초기 상태 유지
+    localStorage.removeItem(STORAGE_KEY);
+  }
+}
 
 // ===== 이벤트 등록 =====
 
@@ -120,6 +146,7 @@ function handleAddTodo() {
   // 현재 선택된 날짜를 todo에 함께 저장
   const newTodo = { id: nextId++, text, completed: false, date: selectedDate };
   todos.push(newTodo);
+  saveTodos();
 
   todoInput.value = '';
   todoInput.focus();
@@ -131,12 +158,14 @@ function handleAddTodo() {
 function toggleComplete(id) {
   const todo = findTodoById(id);
   if (todo) todo.completed = !todo.completed;
+  saveTodos();
   renderTodoList();
 }
 
 // ===== Todo 삭제 =====
 function deleteTodo(id) {
   todos = todos.filter((todo) => todo.id !== id);
+  saveTodos();
   renderTodoList();
 }
 
@@ -182,6 +211,7 @@ function saveEdit(id, editInput) {
 
   const todo = findTodoById(id);
   if (todo) todo.text = newText;
+  saveTodos();
 
   renderTodoList();
 }
@@ -258,6 +288,7 @@ function showError(visible) {
   errorMsg.classList.toggle('hidden', !visible);
 }
 
-// ===== 초기 렌더링 =====
+// ===== 초기화: 로컬스토리지 복원 후 렌더링 =====
+loadTodos();
 renderDateNav();
 renderTodoList();
