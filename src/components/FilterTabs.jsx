@@ -13,13 +13,13 @@ export default function FilterTabs({ filter, todos, selectedDate, onFilterChange
   }
 
   return (
-    <div className="flex gap-[6px] mb-5 border-b-2 border-app-border">
+    <div className="flex gap-1.5 mb-5 border-b-2 border-app-border">
       {FILTERS.map(({ key, label }) => (
         <button
           key={key}
           onClick={() => onFilterChange(key)}
           className={[
-            'h-[38px] px-[18px] rounded-t-lg text-[0.88rem] font-semibold transition-colors -mb-[2px] border-b-2 border-0 border-b cursor-pointer',
+            'h-11 px-5.5 rounded-t-lg text-[0.88rem] font-semibold transition-colors -mb-0.5 border-0 border-b-2 cursor-pointer',
             filter === key
               ? 'text-primary border-primary bg-primary-xlight'
               : 'text-app-muted border-transparent hover:text-primary hover:bg-primary-light',

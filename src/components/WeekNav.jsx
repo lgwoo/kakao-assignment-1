@@ -24,7 +24,7 @@ export default function WeekNav({ todos, selectedDate, weekOffset, onSelectDate,
         <button
           onClick={() => onNavigateWeek(-1)}
           aria-label="이전 주"
-          className="w-8 h-8 rounded-lg text-primary text-2xl flex items-center justify-center hover:bg-primary-xlight transition-colors cursor-pointer"
+          className="w-10 h-10 rounded-lg text-primary text-2xl flex items-center justify-center hover:bg-primary-xlight transition-colors cursor-pointer"
         >
           ‹
         </button>
@@ -33,14 +33,14 @@ export default function WeekNav({ todos, selectedDate, weekOffset, onSelectDate,
         </span>
         <button
           onClick={onGoToToday}
-          className="h-7 px-3 border-[1.5px] border-primary rounded-full text-primary text-[0.78rem] font-bold hover:bg-primary hover:text-white transition-colors cursor-pointer"
+          className="h-8 px-7 border-[1.5px] border-primary rounded-full text-primary text-[0.78rem] font-bold hover:bg-primary hover:text-white transition-colors cursor-pointer"
         >
           오늘
         </button>
         <button
           onClick={() => onNavigateWeek(1)}
           aria-label="다음 주"
-          className="w-8 h-8 rounded-lg text-primary text-2xl flex items-center justify-center hover:bg-primary-xlight transition-colors cursor-pointer ml-2"
+          className="w-10 h-10 rounded-lg text-primary text-2xl flex items-center justify-center hover:bg-primary-xlight transition-colors cursor-pointer ml-2"
         >
           ›
         </button>
@@ -58,7 +58,7 @@ export default function WeekNav({ todos, selectedDate, weekOffset, onSelectDate,
               key={dateStr}
               onClick={() => onSelectDate(dateStr)}
               className={[
-                'flex-1 min-w-0 flex flex-col items-center gap-[5px] py-2 px-1 rounded-[10px] transition-colors cursor-pointer select-none border-0',
+                'flex-1 min-w-0 flex flex-col items-center gap-[5px] py-3 px-2 rounded-[10px] transition-colors cursor-pointer select-none border-0',
                 isSelected
                   ? 'bg-primary hover:bg-primary-dark ' + (isToday ? 'shadow-[inset_0_0_0_2px_rgba(255,255,255,0.55)]' : '')
                   : isToday

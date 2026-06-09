@@ -42,10 +42,11 @@ export default function TodoItem({ todo, onToggleComplete, onDelete, onSave }) {
     setShowDeleteConfirm(false)
   }
 
-  const btnBase = 'h-8 px-3 rounded-[7px] text-[0.78rem] font-semibold transition-colors active:scale-95 cursor-pointer border-0'
+  const btnBase = 'h-10 min-w-[76px] px-6 rounded-lg text-[0.82rem] font-semibold transition-colors active:scale-95 cursor-pointer border-0'
+  const btnConfirm = 'h-10 min-w-[60px] px-3 rounded-lg text-[0.82rem] font-semibold transition-colors active:scale-95 cursor-pointer border-0'
 
   return (
-    <li className={`flex items-center gap-3 border rounded-[10px] p-[14px_16px] transition-shadow hover:shadow-[0_2px_10px_rgba(103,43,224,0.08)] ${todo.completed ? 'bg-[#faf9fe] border-app-border' : 'bg-white border-app-border'}`}>
+    <li className={`flex items-center gap-3 border rounded-[10px] p-[16px_18px] transition-shadow hover:shadow-[0_2px_10px_rgba(103,43,224,0.08)] ${todo.completed ? 'bg-[#faf9fe] border-app-border' : 'bg-white border-app-border'}`}>
       {isEditing ? (
         <input
           ref={editInputRef}
@@ -54,7 +55,7 @@ export default function TodoItem({ todo, onToggleComplete, onDelete, onSave }) {
           onChange={e => setEditValue(e.target.value)}
           onKeyDown={handleEditKeyDown}
           maxLength={200}
-          className="flex-1 h-9 px-[10px] border-2 border-primary rounded-[7px] text-[0.95rem] text-app-dark outline-none"
+          className="flex-1 h-10 px-3 border-2 border-primary rounded-lg text-[0.95rem] text-app-dark outline-none"
         />
       ) : (
         <span className={`flex-1 text-[0.95rem] leading-[1.4] break-all ${todo.completed ? 'line-through text-app-muted' : 'text-app-dark'}`}>
@@ -87,10 +88,10 @@ export default function TodoItem({ todo, onToggleComplete, onDelete, onSave }) {
         {showDeleteConfirm ? (
           <div className="flex items-center gap-1">
             <span className="text-[0.75rem] text-error whitespace-nowrap">삭제할까요?</span>
-            <button onClick={handleConfirmDelete} className={`${btnBase} bg-error text-white hover:bg-[#c03030]`}>
+            <button onClick={handleConfirmDelete} className={`${btnConfirm} bg-error text-white hover:bg-[#c03030]`}>
               예
             </button>
-            <button onClick={() => setShowDeleteConfirm(false)} className={`${btnBase} bg-[#f0f0f0] text-[#555] hover:bg-[#e0e0e0]`}>
+            <button onClick={() => setShowDeleteConfirm(false)} className={`${btnConfirm} bg-[#f0f0f0] text-[#555] hover:bg-[#e0e0e0]`}>
               아니오
             </button>
           </div>
