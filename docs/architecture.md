@@ -45,8 +45,8 @@ backend/
 | (도전) 필터·검색 | Client | `useSearchParams` → Suspense 경계 필요 |
 
 > "이유" 칸은 직접 채우세요. 회고/평가에서 설명할 수 있어야 합니다.
-> - 날짜별 목록이 Client인 이유(=`selectedDate`가 클라이언트 state) → (TODO)
-> - `error.tsx`가 Client여야 하는 이유 → (TODO)
+> - 날짜별 목록이 Client인 이유(=`selectedDate`가 클라이언트 state) → (선택 날짜를 useState로 들고 있기 때문이다.)
+> - `error.tsx`가 Client여야 하는 이유 → (reset같은 인터랙션을 다루기 때문이다.)
 
 ---
 
