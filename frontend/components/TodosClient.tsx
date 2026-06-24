@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Todo } from '@/types/todo'
 import { getTodayString, getMondayOfWeek, formatDateKey } from '@/utils/dateUtils'
 import WeekNav from './WeekNav'
@@ -15,20 +15,45 @@ export default function TodosClient() {
   const [weekOffset, setWeekOffset] = useState(0)
 
 
-  function addTodo(text: string) {
-    setTodos(prev => [...prev, { id: Date.now(), text, completed: false, date: selectedDate }])
-  }
+  async function addTodo(text: string) {
+    const res = await fetch('/api/todos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text, date: selectedDate }),
+    })
+    const newTodo = await res.json()
+    setTodos(prev => [...prev, newTodo])
+}
 
-  function toggleComplete(id: number) {
-    setTodos(prev => prev.map(t => t.id === id ? { ...t, completed: !t.completed } : t))
-  }
 
-  function deleteTodo(id: number) {
+  async function toggleComplete(id: number) {
+  const todo = todos.find(t => t.id === id)!
+  const res = await fetch(`/api/todos/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ completed: !todo.completed }),
+  })
+  const updated = await res.json()
+  setTodos(prev => prev.map(t => t.id === id ? updated : t))
+}
+    
+
+  async function deleteTodo(id: number) {
+    const res = await fetch(`/api/todos/${id}`, {
+      method: 'DELETE',
+    })
+    if (!res.ok) throw new Error('Failed to delete todo')
     setTodos(prev => prev.filter(t => t.id !== id))
   }
 
-  function saveTodo(id: number, newText: string) {
-    setTodos(prev => prev.map(t => t.id === id ? { ...t, text: newText } : t))
+  async function saveTodo(id: number, newText: string) {
+    const res = await fetch(`/api/todos/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: newText }),
+    })
+    const updated = await res.json()
+    setTodos(prev => prev.map(t => t.id === id ? updated : t))
   }
 
   function navigateWeek(direction: number) {
@@ -42,6 +67,11 @@ export default function TodosClient() {
     setSelectedDate(getTodayString())
   }
 
+  useEffect(() => {
+  fetch(`/api/todos?date=${selectedDate}`)
+    .then(r => r.json())
+    .then(setTodos)
+    }, [selectedDate])
   return (
     <div className="min-h-screen bg-app-bg flex justify-center px-4 py-[60px]">
       <div className="w-full max-w-[560px]">
