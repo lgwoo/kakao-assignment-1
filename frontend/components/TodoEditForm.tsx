@@ -4,17 +4,23 @@ import { useRouter } from 'next/navigation'
 
 interface TodoEditFormProps {
   todoId: number
+  initialText: string
+  initialDate: string
 }
 
-export default function TodoEditForm({ todoId }: TodoEditFormProps) {
-  const [text, setText] = useState('')
-  const [date, setDate] = useState('')
+export default function TodoEditForm({ todoId, initialText, initialDate }: TodoEditFormProps) {
+  const [text, setText] = useState(initialText)
+  const [date, setDate] = useState(initialDate)
   const router = useRouter()
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    console.log({ todoId, text, date })  // 미션 5에서 PUT API 연동
-    router.push('/todos')
+    const res = await fetch(`/api/todos/${todoId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: text.trim(), date }),
+    })
+    if (res.ok) router.push('/todos')
   }
 
   return (

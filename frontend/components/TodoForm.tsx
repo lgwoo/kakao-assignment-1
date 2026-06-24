@@ -1,18 +1,24 @@
 "use client"
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { getTodayString } from '@/utils/dateUtils'
 
 export default function TodoForm() {
   const [text, setText] = useState('')
-  const [date, setDate] = useState('')
+  const [date, setDate] = useState(getTodayString())
   const router = useRouter()
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    // 미션 5에서 API 연동 — 지금은 콘솔 확인만
-    console.log({ text, date })
-    router.push('/todos')
+    if (!text.trim()) return
+    const res = await fetch('/api/todos', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: text.trim(), date }),
+    })
+    if (res.ok) router.push('/todos')
   }
+
 
   return (
     <form onSubmit={handleSubmit}>

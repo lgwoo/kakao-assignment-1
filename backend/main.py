@@ -74,10 +74,11 @@ def delete_todo(todo_id: int, db: Session = Depends(get_db)):
     db_todo = db.query(Todo).filter(Todo.id == todo_id).first()
     if db_todo is None:
         raise HTTPException(status_code=404, detail="Todo not found")
-    
+    todo_response = TodoResponse.model_validate(db_todo)  # ← 삭제 전에 미리 변환
     db.delete(db_todo)
     db.commit()
-    return db_todo
+    return todo_response 
+
 
 @app.get("/todos", response_model=list[TodoResponse])
 def get_todos(db: Session = Depends(get_db)):
