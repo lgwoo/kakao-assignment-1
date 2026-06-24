@@ -3,11 +3,11 @@
 > 세션 시작 시 먼저 읽고, 끝낼 때 갱신. 기능 단위마다 Issue 템플릿에도 기록할 것.
 
 ## 필수 미션
-- [ ] 0. 구조 잡기 — 프로젝트 생성, 프론트/백 분리, 기능 배치 정리
-- [ ] 1. 프론트 세팅 — create-next-app(옵션 준수), localhost:3000 확인
-- [ ] 2. 백엔드 세팅 — venv + requirements, localhost:8000 + /docs 확인
-- [ ] 3. FastAPI CRUD — SQLAlchemy 모델/Pydantic 스키마/CORS/4개 엔드포인트, todos.db 생성
-- [ ] 4. Next 페이지 — 목록/생성/수정 + loading.tsx/error.tsx, Server/Client 구분
+- [x] 0. 구조 잡기 — 프로젝트 생성, 프론트/백 분리, 기능 배치 정리
+- [x] 1. 프론트 세팅 — create-next-app(옵션 준수), localhost:3000 확인
+- [x] 2. 백엔드 세팅 — venv + requirements, localhost:8000 + /docs 확인
+- [x] 3. FastAPI CRUD — SQLAlchemy 모델/Pydantic 스키마/CORS/4개 엔드포인트, todos.db 생성
+- [ ] 4. Next 페이지 — 목록/생성/수정 + loading.tsx/error.tsx, Server/Client 구분 (진행 중)
 - [ ] 5. 연동 — route.ts(프록시) + actions.ts(Server Action), CRUD 전체 흐름
 - [ ] 6. 환경변수 — .env.local 분리, 하드코딩 URL 제거
 
@@ -28,4 +28,4 @@
 -
 
 ## 현재 막힌 것 / 다음 할 일
--
+- TodosClient.tsx 작성 후 todos/page.tsx 조립 → new/page.tsx, [todoId]/page.tsx 순서로 미션 4 완료
