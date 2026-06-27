@@ -67,11 +67,21 @@ export default function TodosClient() {
     setSelectedDate(getTodayString())
   }
 
-  useEffect(() => {
-  fetch(`/api/todos?date=${selectedDate}`)
-    .then(r => r.json())
-    .then(setTodos)
-    }, [selectedDate])
+useEffect(() => {
+  async function fetchTodos() {
+    try {
+      const res = await fetch(`/api/todos?date=${selectedDate}`)
+      if (!res.ok) throw new Error('Network response was not ok')
+      const data = await res.json()
+      setTodos(data)
+    } catch (error) {
+      console.error("Failed to fetch todos:", error)
+    }
+  }
+  fetchTodos()
+}, [selectedDate])
+
+
   return (
     <div className="min-h-screen bg-app-bg flex justify-center px-4 py-[60px]">
       <div className="w-full max-w-[560px]">
